@@ -1,0 +1,266 @@
+---
+openapi: 3.0.1
+info:
+  title: STD21044
+  description: Hello
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/LOICAETUDIANT/SWAGGER-STD44/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://STD21044.com
+tags:
+- name: student
+- name: courses
+paths:
+  /student/{id}:
+    put:
+      tags:
+      - student
+      summary: modify student by id
+      operationId: putStudent
+      parameters:
+      - name: id
+        in: path
+        description: The id of the student
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        "400":
+          description: Invalid id
+          content: {}
+    delete:
+      tags:
+      - student
+      summary: delete student by id
+      operationId: deleteStudent
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the student '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid id
+          content: {}
+    patch:
+      tags:
+      - student
+      summary: Modify student
+      operationId: patchStudent
+      parameters:
+      - name: id
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/student_id_body'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        "400":
+          description: Invalid id
+          content: {}
+  /student:
+    get:
+      tags:
+      - student
+      summary: Finds student
+      operationId: getStudent
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        "400":
+          description: Invalid status value
+          content: {}
+    post:
+      tags:
+      - student
+      summary: Add new student
+      operationId: postStudent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        "400":
+          description: Error-404
+          content: {}
+  /courses:
+    get:
+      tags:
+      - courses
+      summary: Get courses
+      operationId: getCourses
+      parameters:
+      - name: page
+        in: query
+        description: The page
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: page-size
+        in: query
+        description: The page size
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courses'
+        "400":
+          description: Bad request
+          content: {}
+    post:
+      tags:
+      - courses
+      summary: Add courses
+      operationId: postCourses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Courses'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Courses'
+        "400":
+          description: Bad request
+          content: {}
+  /courses/{id}:
+    get:
+      tags:
+      - courses
+      summary: Get courses by id
+      parameters:
+      - name: id
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Courses'
+        "400":
+          description: Invalid id
+          content: {}
+        "404":
+          description: courses not found
+          content: {}
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 21044
+        username:
+          type: string
+          example: fifaliana
+        firstName:
+          type: string
+          example: Loica
+        lastName:
+          type: string
+          example: Andriantsoa
+        email:
+          type: string
+          example: fifalianaloica@gmail.com
+        phone:
+          type: string
+          example: +261 34 84 073 51
+    Courses:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        coursesName:
+          type: string
+          example: PROG
+        teacher:
+          type: string
+          example: Mr Toky
+    student_id_body:
+      properties:
+        username:
+          type: string
