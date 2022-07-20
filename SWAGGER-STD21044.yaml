@@ -259,7 +259,7 @@ components:
           example: PROG
         teacher:
           type: string
-          example: Mr Toky
+          example: Mr Ryan
     student_id_body:
       properties:
         username:
