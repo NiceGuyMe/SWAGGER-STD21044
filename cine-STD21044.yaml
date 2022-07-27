@@ -1,0 +1,400 @@
+---
+openapi: 3.0.0
+info:
+  title: Cine
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/LOICAETUDIANT/CINE/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://STD21044.com
+tags:
+- name: salle
+- name: film
+- name: projection
+paths:
+  /salle:
+    get:
+      tags:
+      - salle
+      summary: Get all salle
+      operationId: getSalle
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salle'
+        "400":
+          description: Invalid ID supplied
+  /salle/{id}:
+    get:
+      tags:
+      - salle
+      summary: get salle by id
+      operationId: getSalleById
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the salle '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salleId'
+        "400":
+          description: Invalid id
+          content: {}
+  /film:
+    get:
+      tags:
+      - film
+      summary: Get all film
+      operationId: getAllFilm
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/film'
+        "400":
+          description: Invalid ID supplied
+    post:
+      tags:
+      - film
+      summary: add new film
+      operationId: addFilm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/filmName'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filmName'
+        "400":
+          description: Invalid id
+          content: {}
+  /film/{name}:
+    get:
+      tags:
+      - film
+      summary: get film by name
+      operationId: getFilmByName
+      parameters:
+      - name: name
+        in: path
+        description: 'The id of the salle '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filmName'
+        "400":
+          description: Invalid id
+          content: {}
+    put:
+      tags:
+      - film
+      summary: modify film by name
+      operationId: putStudent
+      parameters:
+      - name: name
+        in: path
+        description: The name of the film
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salleId'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salleId'
+        "400":
+          description: Invalid id
+          content: {}
+    delete:
+      tags:
+      - film
+      summary: delete film by id
+      operationId: deleteFilm
+      parameters:
+      - name: name
+        in: path
+        description: 'The id of the film '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid id
+          content: {}
+    patch:
+      tags:
+      - film
+      summary: Modify film
+      operationId: patchStudent
+      parameters:
+      - name: name
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/film_name_body'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salleId'
+        "400":
+          description: Invalid id
+          content: {}
+  /projection:
+    get:
+      tags:
+      - projection
+      summary: Get all projection
+      operationId: getAllProjection
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projection'
+        "400":
+          description: Invalid ID supplied
+    post:
+      tags:
+      - projection
+      summary: add new projection
+      operationId: addProjection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectionId'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projectionId'
+        "400":
+          description: Invalid id
+          content: {}
+  /projection/{id}:
+    get:
+      tags:
+      - projection
+      summary: get projection by id
+      operationId: getProjectionById
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the projection '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projectionId'
+        "400":
+          description: Invalid id
+          content: {}
+    put:
+      tags:
+      - projection
+      summary: modify projection by id
+      operationId: putProjection
+      parameters:
+      - name: id
+        in: path
+        description: The id of the projection
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectionId'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projectionId'
+        "400":
+          description: Invalid id
+          content: {}
+    delete:
+      tags:
+      - projection
+      summary: delete projection by id
+      operationId: deleteProjection
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the projection '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid id
+          content: {}
+    patch:
+      tags:
+      - projection
+      summary: Modify projection
+      operationId: patchProjection
+      parameters:
+      - name: id
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projection_id_body'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projectionId'
+        "400":
+          description: Invalid id
+          content: {}
+components:
+  schemas:
+    salle:
+      type: object
+      properties:
+        numero:
+          type: integer
+          format: int64
+    salleId:
+      type: object
+      properties:
+        numero:
+          type: integer
+          format: int64
+        capacite:
+          type: integer
+          format: int64
+    filmName:
+      type: object
+      properties:
+        titre:
+          type: string
+        durée:
+          type: string
+        resumée:
+          type: string
+        realisateur:
+          type: string
+        dateDeSortie:
+          type: string
+    film:
+      type: object
+      properties:
+        titre:
+          type: string
+    projectionId:
+      type: object
+      properties:
+        film:
+          type: string
+        salle:
+          type: string
+        heure:
+          type: string
+    projection:
+      type: object
+      properties:
+        projectionList:
+          type: string
+    film_name_body:
+      properties:
+        username:
+          type: string
+    projection_id_body:
+      properties:
+        username:
+          type: string
