@@ -1,31 +1,57 @@
----
 openapi: 3.0.0
 info:
+  version: "1.0.0"
   title: Cine
-  version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/LOICAETUDIANT/CINE/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: https://STD21044.com
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/LOICAETUDIANT/CINE/1.0.0
+  - url: https://STD21044.com
 tags:
-- name: salle
-- name: film
-- name: projection
+  - name: salle
+  - name: film
+  - name: projection
+  - name: calendar
 paths:
-  /salle:
+
+  /calendar:
     get:
-      tags:
-      - salle
-      summary: Get all salle
-      operationId: getSalle
+      tags: 
+        - calendar
+      summary: Get date
+      operationId: getCalendar
+      parameters:
+      - name: date
+        in: query
+        description: 'The date '
+        required: true
+        schema:
+          type: string
+          format: date-time
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/salle'
-        "400":
+                  $ref: '#/components/schemas/calendar'
+        '400':
+          description: Invalid date    
+        
+  /salle:
+    get:
+      tags:
+        - salle
+      summary: Get all salle
+      operationId: getSalle
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/salle'
+        '400':
           description: Invalid ID supplied
   /salle/{id}:
     get:
@@ -38,36 +64,21 @@ paths:
         in: path
         description: 'The id of the salle '
         required: true
-        style: simple
-        explode: false
         schema:
           type: integer
           format: int64
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/salleId'
-        "400":
-          description: Invalid id
-          content: {}
+                  $ref: '#/components/schemas/salleId'
+        400:
+          description: Invalid id 
+          content: {} 
+      
   /film:
-    get:
-      tags:
-      - film
-      summary: Get all film
-      operationId: getAllFilm
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/film'
-        "400":
-          description: Invalid ID supplied
     post:
       tags:
       - film
@@ -78,17 +89,31 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/filmName'
-        required: true
+        required: true      
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/filmName'
-        "400":
+        400:
           description: Invalid id
           content: {}
+    get:
+      tags:
+        - film
+      summary: Get all film
+      operationId: getAllFilm
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/film'
+        '400':
+          description: Invalid ID supplied
   /film/{name}:
     get:
       tags:
@@ -100,50 +125,18 @@ paths:
         in: path
         description: 'The id of the salle '
         required: true
-        style: simple
-        explode: false
         schema:
           type: integer
           format: int64
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/filmName'
-        "400":
-          description: Invalid id
-          content: {}
-    put:
-      tags:
-      - film
-      summary: modify film by name
-      operationId: putStudent
-      parameters:
-      - name: name
-        in: path
-        description: The name of the film
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/salleId'
-        required: true
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/salleId'
-        "400":
-          description: Invalid id
+                  $ref: '#/components/schemas/filmName'
+        400:
+          description: Invalid id 
           content: {}
     delete:
       tags:
@@ -155,17 +148,43 @@ paths:
         in: path
         description: 'The id of the film '
         required: true
-        style: simple
-        explode: false
         schema:
           type: integer
           format: int64
       responses:
-        "200":
+        200:
           description: successful operation
-        "400":
-          description: Invalid id
+        400:
+          description: Invalid id 
           content: {}
+    put:
+      tags:
+      - film
+      summary: modify film by name
+      operationId: putStudent
+      parameters:
+      - name: name
+        in: path
+        description: 'The name of the film'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/salleId'
+        required: true      
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salleId'
+        400:
+          description: Invalid id
+          content: {}      
     patch:
       tags:
       - film
@@ -176,42 +195,30 @@ paths:
         in: path
         description: 'The id that needs to be fetched. '
         required: true
-        style: simple
-        explode: false
         schema:
-          type: integer
-          format: int64
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/film_name_body'
+              properties:
+                username:
+                  type: string
         required: true
+        
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/salleId'
-        "400":
-          description: Invalid id
+                  $ref: '#/components/schemas/salleId'
+        400:
+          description: Invalid id 
           content: {}
+          
   /projection:
-    get:
-      tags:
-      - projection
-      summary: Get all projection
-      operationId: getAllProjection
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/projection'
-        "400":
-          description: Invalid ID supplied
     post:
       tags:
       - projection
@@ -222,17 +229,31 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/projectionId'
-        required: true
+        required: true      
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/projectionId'
-        "400":
+        400:
           description: Invalid id
           content: {}
+    get:
+      tags:
+        - projection
+      summary: Get all projection
+      operationId: getAllProjection
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/projection'
+        '400':
+          description: Invalid ID supplied
   /projection/{id}:
     get:
       tags:
@@ -244,50 +265,18 @@ paths:
         in: path
         description: 'The id of the projection '
         required: true
-        style: simple
-        explode: false
         schema:
           type: integer
           format: int64
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/projectionId'
-        "400":
-          description: Invalid id
-          content: {}
-    put:
-      tags:
-      - projection
-      summary: modify projection by id
-      operationId: putProjection
-      parameters:
-      - name: id
-        in: path
-        description: The id of the projection
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/projectionId'
-        required: true
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/projectionId'
-        "400":
-          description: Invalid id
+                  $ref: '#/components/schemas/projectionId'
+        400:
+          description: Invalid id 
           content: {}
     delete:
       tags:
@@ -299,50 +288,84 @@ paths:
         in: path
         description: 'The id of the projection '
         required: true
-        style: simple
-        explode: false
         schema:
           type: integer
           format: int64
       responses:
-        "200":
+        200:
           description: successful operation
-        "400":
-          description: Invalid id
+        400:
+          description: Invalid id 
           content: {}
+    put:
+      tags:
+      - projection
+      summary: modify projection by id
+      operationId: putProjection
+      parameters:
+      - name: id
+        in: path
+        description: 'The id of the projection'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/projectionId'
+        required: true      
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/projectionId'
+        400:
+          description: Invalid id 
+          content: {}      
     patch:
       tags:
       - projection
-      summary: Modify projection
+      summary: Modify projection 
       operationId: patchProjection
       parameters:
       - name: id
         in: path
         description: 'The id that needs to be fetched. '
         required: true
-        style: simple
-        explode: false
         schema:
-          type: integer
-          format: int64
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/projection_id_body'
+              properties:
+                username:
+                  type: string
         required: true
+        
       responses:
-        "200":
+        200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/projectionId'
-        "400":
-          description: Invalid id
-          content: {}
+                  $ref: '#/components/schemas/projectionId'
+        400:
+          description: Invalid id 
+          content: {}      
+          
 components:
   schemas:
+    calendar:
+      type: object
+      properties:
+        numero:
+          type: integer
+          format: int64
     salle:
       type: object
       properties:
@@ -357,7 +380,7 @@ components:
           format: int64
         capacite:
           type: integer
-          format: int64
+          format: int64      
     filmName:
       type: object
       properties:
@@ -366,11 +389,11 @@ components:
         durée:
           type: string
         resumée:
-          type: string
+          type: string  
         realisateur:
           type: string
         dateDeSortie:
-          type: string
+          type: string  
     film:
       type: object
       properties:
@@ -384,17 +407,9 @@ components:
         salle:
           type: string
         heure:
-          type: string
+          type: string  
     projection:
       type: object
       properties:
         projectionList:
-          type: string
-    film_name_body:
-      properties:
-        username:
-          type: string
-    projection_id_body:
-      properties:
-        username:
           type: string
